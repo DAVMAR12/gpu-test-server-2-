@@ -1,0 +1,15 @@
+from fastapi import FastAPI
+import torch
+
+app = FastAPI()
+
+@app.get("/")
+def root():
+    return {"message": "Привет, Давид, я Криштиану Роналду!"}
+
+@app.get("/gpu")
+def gpu():
+    return {
+        "cuda": torch.cuda.is_available(),
+        "gpu_name": torch.cuda.get_device_name(0) if torch.cuda.is_available() else "None"
+    }
